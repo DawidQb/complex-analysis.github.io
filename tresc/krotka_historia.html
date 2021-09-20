@@ -1,0 +1,853 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="../images/infinity32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="../images/infinity16.png" sizes="16x16">
+  <title>Complex Analysis</title>
+
+  <!-- dublin core -->
+  <meta name="dc.title" CONTENT="Complex Analysis">
+  <meta name="dc.creator" CONTENT="Juan Carlos Ponce Campuzano">
+  <meta name="dc.date" CONTENT="26-01-2019">
+  <meta name="dc.isbn" CONTENT="ISBN-13: 978-0-6485736-0-9">
+  <meta name="dc.type" CONTENT="Interactive Resource">
+  <meta name="dc.format" CONTENT="HTML">
+  <meta name="dc.language" CONTENT="en-US">
+  <meta name="dc.rights" CONTENT="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+
+  <!-- social media cards -->
+  <meta property="og:title" content="Complex Analysis">
+  <meta property="og:description" content="An online interactive introduction to the study of complex analysis.">
+  <meta property="og:type" content="website">
+  <!--<meta property="og:image" content="">
+	<meta property="og:url" content="">-->
+  <meta name="twitter:card" content="An online interactive introduction to the study of complex analysis.">
+  <meta property="og:site_name" content="Complex Analysis">
+
+
+  <!-- FONTS AND CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,800" rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic" rel='stylesheet'
+    type='text/css'>
+  <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../css/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+  <!-- CODE PRETTIFY -->
+  <!-- via: https://github.com/google/code-prettify -->
+  <script src="../js/run_prettify.js"></script>
+
+
+
+  <!-- JQUERY FANCY ADDITIONS -->
+  <!-- add code class, hover text, etc -->
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script>
+    $(document).ready(function () {
+
+      // prettyprint the code, pls
+      $('pre').addClass('prettyprint lang-java');
+
+      // add word-breaks to anything with a / or - in it
+      $('h1').each(function () {
+        var t = $(this).text();
+        t = t.replace('/', '/<wbr>');
+        t = t.replace('-', '-<wbr>');
+        $(this).html(t);
+      });
+
+      // set formatting
+      resizeCommands();
+    });
+
+    // when the window gets resized, do some stuff to keep everything
+    // looking pretty
+    $(window).resize(function () {
+      resizeCommands();
+    });
+
+    // things to do when the page is loaded or window resized
+    function resizeCommands() {
+      // large-screen stuff...
+      if ($(window).width() > 600) {
+
+        // long headline on intro page
+        // $('#introHeadline').html('TABLE OF CONTENTS');
+
+        // menu hover stuff on larger screens
+        // (does weird formatting on larger screens)
+        // hover over title to show "Table of Contents"
+        $('#title a').hover(
+          function () {
+            $('#title a').text('Table of Contents');
+          },
+          function () {
+            $('#title a').text('Complex Analysis'); // set back when moving out
+          }
+        );
+
+        // set prev/next titles
+        $('#prev a').hover(
+          function () {
+            $('#title a').text('Prev: Comments');
+          },
+          function () {
+            $('#title a').text('Complex Analysis');
+          }
+        );
+        $('#next a').hover(
+          function () {
+            $('#title a').text('Next: Terminology and Notation');
+          },
+          function () {
+            $('#title a').text('Complex Analysis');
+          }
+        );
+      }
+
+      // small-screen stuff
+      else {
+        // short headline on intro page
+        // $('#introHeadline').html('INTRO');
+      }
+    }
+  </script>
+
+  <!-- ANALYTICS -->
+
+  <!-- ANALYTICS -->
+
+  <!--MathJax starts-->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+                           TeX: { equationNumbers: { autoNumber: "AMS" } }
+                           });
+        </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+        </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+    MathJax.Hub.Insert(MathJax.InputJax.TeX.Definitions.macros,{
+      cancel: ["Extension","cancel"],
+      bcancel: ["Extension","cancel"],
+      xcancel: ["Extension","cancel"],
+      cancelto: ["Extension","cancel"]
+    });
+  });
+  </script>
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-155852901-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-155852901-1');
+  </script>
+
+</head>
+
+<body>
+  <div id="wrapper">
+
+    <header>
+      <p><span id="prev"><a href="comments.html">&larr;</a></span><span id="title"><a
+            href="table_of_contents.html">Complex Analysis</a></span><span id="next"><a
+            href="terminology_notation.html">&rarr;</a></span>
+        <div class="clear"></div>
+      </p>
+    </header>
+
+
+    <h1>Krótki wstęp historyczny</h1>
+
+    <hr>
+
+    <h2>Geometryczna interpretacja  <br>równań sześciennych i kwadratowych</h2>
+
+    <div class="w3-responsive">
+      <p>Rozważmy równanie kwadratowe
+        \begin{eqnarray}\label{quad001}
+        x^2 = mx + n.
+        \end{eqnarray}
+        W szkole nauczyliśmy się jak znajdować jego rozwiązania,
+        czyli wszystkie wartości $x$, które spełniają równanie
+        (\ref{quad001}). Aby to zrobić musimy użyć dobrze znanego
+        <em>wzoru</em>
+        \begin{eqnarray}\label{quad002}
+        x = \frac{-b\pm \sqrt{b^2-4ac}}{2a}
+        \end{eqnarray}
+        dla <em>ogólnego równania kwadratowego </em>
+        \begin{eqnarray}\label{quad003}
+        ax^2+ bx+c = 0 .
+        \end{eqnarray}
+        Przepisując równanie (\ref{quad001}) jako $x^2-mx-n = 0$, możemy zastosować
+        (\ref{quad002}) by uzyskać
+        \begin{eqnarray}\label{quad004}
+        x = \frac{ m \pm \sqrt{m^2 + 4n } }{2} = \frac{m}{2} \pm \sqrt{\frac{m^2}{4} + n}
+        \end{eqnarray}
+      </p>
+    </div>
+
+    <p>
+      Jeżeli narysujemy wykres dla (\ref{quad001}) to zaobserwujemy, że geometrycznie przedstawia 
+      przecięcie paraboli $y=x^2$ z prostą $y = mx+n$.
+      Do eksperymentów z wykresem służy poniższy applet. Przeciągając suwaki obserwuj co się dzieje z punktami przecięcia $x_0$ oraz $x_1$.
+    </p>
+
+    <div class="w3-center">
+
+      <div style="display:block;margin-left: auto;margin-right: auto;" id="ggb-element-01"></div>
+    </div>
+
+
+    <br>
+
+    <p>
+      Jak prawdopodobnie zauważyliście istnieją trzy przypadki:
+      <ol>
+        <li>Są dwa punkty przecięcia, czyli dwa rozwiązania.</li>
+        <li>Jest tylko jeden punkt przecięcia, czyli tylko jedno rozwiązanie.</li>
+        <li>Nie ma punktów przecięcia, czyli nie ma rozwiązań.</li>
+      </ol>
+    </p>
+
+    <p>
+      Może się to wydawać zaskakujące, ale te fakty były znane już w czasach starożytnych, nawet bez użycia matematycznych symboli lub komputerów.
+      Z glinianych tabliczek datowanych na około 2000 r. p.n.e. wiemy,
+      że cywilizacja babilońska znała wzór na rozwiązywanie równań kwadratowych (w formie słownej).
+      Ponieważ na wynalezienie liczb ujemnych trzeba było czekać do XVI wieku, Babilończycy nie uznawali rozwiązań ujemnych.
+      <span style="white-space: nowrap;">[<a href="#merzbach-boyer" alt="Merzbach-Boyer" title="Merzbach-Boyer">9</a>,
+        pp. 29-30]</span>.
+      Możemy także znaleźć problemy analogiczne do równań kwadratowych w geometrii rozwiniętej przez starożytnych Greków.
+      Na przykład przy badaniu przecinania się okręgów, parabol i podobnych. 
+      [<a href="#merzbach-boyer" alt="Merzbach-Boyer" title="Merzbach-Boyer">9</a>, Ch. 4].
+      <!--If we ask whether a particular circle and a line intersect, then the answer
+      can be "yes" or "no". And when the answer is "yes", the quadratic equation
+      for the intersection has a solution; if "no", it has no solution.-->
+    </p>
+
+
+    <p>
+      Wróćmy do równania kwadratowego $x^2= mx+ n$.
+      Rozważmy wartości $m=0$ i $n=-1$.
+      Jeżeli zastosujemy wzór (\ref{quad004}), otrzymujemy wynik
+      $$x = \pm\sqrt{-1}.$$
+      Co to właściwie ma znaczyć?
+      Większość z was nauczyła się na analizie matematycznej, lub w szkole podstawowej, że nie możemy
+      policzyć pierwiastka kwadratowego z liczby ujemnej. 
+      W takim razie jak należy interpretować tę wartość? Z geometrycznego punktu widzenia
+      rozwiązanie $x = \pm\sqrt{-1}$ wiąże się z faktem, że
+      parabola $y = x^2$ i prosta $y=-1$
+      nie przecinają się (Rysunek 1). Innymi słowy rozwiązanie nie istnieje.
+      W ogólnośći, jeżeli $\dfrac{m^2}{4} + n \lt 0$,
+      to równanie $x^2= mx+ n$ nie ma rozwiązań.
+    </p>
+
+    <figure class="w3-center">
+      <img class="w3-image w3-mobile" src="../images/chp01/quadraticminus1.svg" alt="x^2=-1" title="x^2=-1"
+        style="width:75%;">
+      <figcaption>
+        <b>Rysunek 1:</b> $x^2=-1$.
+      </figcaption>
+    </figure>
+
+
+    <p>
+      Często uważa się, że doprowadziło to do wynalezienia nowej liczby oznaczanej przez $i$,
+      która jest równa $\sqrt{-1}$, i nazywana jest "urojoną".
+      Jeżeli użyjemy $i$ jako liczby spełniającej warunek $i^2 = -1$,
+      to liczba ta jest rozwiązaniem równania $x^2=-1$.
+    </p>
+
+    <p>
+      Powszechną praktyką na kursach matematyki jest wskazywanie, że
+      <em>liczby zespolone</em>, w formie $a + b\sqrt{-1}$, są potrzebne do rozwiązywania pewnych równań kradratowych, np. $x^2+1=0$.
+      Jednakże liczby zespolone w rzeczywistości pojawiły się po raz pierwszy przy potrzebie rozwiązywania równań sześciennych.
+      Co więcej, kiedy pierwszy raz analizowano równania kwadratowe i sześcienne, nie widziano potrzeby posiadania rozwiązań dla 
+      wszystkich równań.
+    </p>
+
+    <p>
+      Skąd w takim razie pojawiły się liczby zespolone? Aby odpowiedzieć na to pytanie rozważmy równanie sześcienne 
+      \begin{eqnarray}\label{cubic001}
+      x^3 = p x + q.
+      \end{eqnarray}
+      Geometrycznie, to równanie przedstawia przecięcie krzywej sześciennej
+      $y = x^3$ z prostą $y = px + q$,
+      jak zostało przedstawione na poniższym applecie. Przeciągaj suwaki i obserwuj co się dzieje.
+    </p>
+
+    <div class="w3-center">
+      <div style="display:block;width:798;height:516;margin-left: auto;margin-right: auto;" id="ggb-element-02"></div>
+    </div>
+
+
+    <br>
+
+    <p>
+      Jak można zaobserwować, niezależnie od tego jaka prosta jest zdefiniowana przez parametry $p$ i $q$,
+      przecina się ona zawsze z krzywą sześcienną, nawet jeśli prosta $px+q$ jest niemal prostopadła do osi $x$ i znajduje
+      się daleko od początku układu współprzędnych (na przykład gdy $p$ i $q$ są oba bardzo dużymi dodatnimi/ujemnymi liczbami).
+
+      Dzieje się tak, ponieważ krzywa sześcienna rozciąga się og $-\infty$ do $+\infty$.
+      Tak więc nie da się narysować prostej, która by nie przecięła się z tą krzywą. 
+      Ten przykład jest istotnie inny od przypadku z parabolą $x^2$, gdzie dało się zdefiniować prostą
+      $mx + n$, która nie przecinała paraboli. 
+    </p>
+
+    <hr>
+
+    <h2>Rozwiązania równań sześciennych</h2>
+
+    <div class="w3-responsive">
+
+      <p>
+        Rozwiązywanie równania sześciennego $x^3 = px + q$
+        zostało rozwinięte w renesansie (XV i XVI w.) przez włoskich matematyków.
+        Scipione del Ferro (1465-1526) and Niccolò Tartaglia (1500-1557),
+        oraz kontynuujący ich prace Girolamo Cardano (1501-1576), pokazali że $x^3 = px + q$
+        ma rozwiązanie dane przez
+        \begin{eqnarray}\label{cubic002}
+        x = \sqrt[3]{\frac{q}{2} + \sqrt{\frac{q^2}{4} - \frac{p^3}{27}}} -
+        \sqrt[3]{- \frac{q}{2} + \sqrt{\frac{q^2}{4} - \frac{p^3}{27}}}
+        \end{eqnarray}
+        Powyższa równość znana jest jako wzór Cardana, tutaj przedstawiona we współczesnej notacji.
+      </p>
+    </div>
+
+    <div class="w3-row-padding">
+      <div id="phase" class="w3-half w3-container w3-margin-bottom">
+        <figure class="w3-center">
+          <img class="w3-image w3-mobile" src="../images/chp01/tartaglia.jpg" alt="Niccolò Fontana Tartaglia"
+            title="Niccolò Fontana Tartaglia" style="width:61%;">
+          <figcaption>
+            <b>Rysunek 2:</b> Tartaglia.
+          </figcaption>
+        </figure>
+      </div>
+      <div id="modulus" class="w3-half w3-container w3-margin-bottom">
+        <figure class="w3-center">
+          <img class="w3-image w3-mobile" src="../images/chp01/cardano.jpg" alt="Gerolamo Cardano"
+            title="Gerolamo Cardano" style="width:70%;">
+          <figcaption>
+            <b>Rysunek 3:</b> Cardano.
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+
+
+    <p>
+      Aby zobaczyć jak to działa rozważmy równanie $x^3 = -6 x+ 20$.
+      W takim przypadku $p=-6$ oraz $q=20$. Jeżeli podstawimy te wartości do
+      (\ref{cubic002}), otrzymujemy rozwiązanie
+      $$x = \displaystyle \sqrt[3]{10 + \sqrt{108}} -
+      \sqrt[3]{- 10 + \sqrt{108}}$$
+      Upraszając otrzymujemy $x=2$ - rozwiązanie pierwotnego równania, skoro
+      $$8=(2)^3 = -6(2)+ 20 = -12+20=8.$$
+      Wygląda na to, że wzór działa poprawnie, przynajmniej dla tego pojedycznego przypadku.
+    </p>
+
+    <div class="w3-padding">
+      <p><strong>Ćwiczenie:</strong> Spróbuj rozwiązać $x^3=6x+6$ używając wzoru Cardana.</p>
+    </div>
+
+    <hr>
+
+    <h2>Geneza liczb zespolonych</h2>
+
+    <p>
+      Kilka lat po odkryciu wzoru Cardana włoski inżynier-architekt Rafael Bombelli (1526-1572)
+      zauważył coś dziwnego i paradoksalnego w tym wzorze.
+      Bombelli analizował równanie
+      \begin{eqnarray}\label{cubic003}
+      x^3= 15 x+ 4
+      \end{eqnarray}
+      dla którego, być może po chwili zastanowienia, widać że $x = 4$ jest rozwiązaniem. Przedstawione jest to na rysunku 4.
+      W rzeczywistości istnieją trzy rozwiązania, ale Bombelli nie rozważał ujemnych rozwiązań, więc my także nie będziemy.
+    </p>
+
+    <figure class="w3-center">
+      <img class="w3-image w3-mobile" src="../images/chp01/cubic-line.svg" alt="x^3=15x+4" title="x^3=15x+4"
+        style="width:65%;">
+      <figcaption>
+        <b>Figure 4:</b> $x^3=15x+4$.
+      </figcaption>
+    </figure>
+
+    <div class="w3-responsive">
+      <p>
+        Następnie Bombelli zastosował wzór Cardano do rozwiązania $x^3= 15 x+ 4$.
+        Podstawiając $p = 15$ i $q=4$ otrzymał
+        \begin{eqnarray}\label{cubic004}
+        x = \displaystyle \sqrt[3]{2 + \sqrt{-121}} + \sqrt[3]{2 - \sqrt{-121}}.
+        \end{eqnarray}
+        Tutaj napotkał on bardzo dziwaczną wartość. Jeżeli wzór Cardana jest poprawny, to ta liczba musi być równa 4.
+        Jednakże to jest nonsens i ta wartość nie może być prawdziwa, ponieważ wewnątrz pierwiastka trzeciego stopnia
+        liczymy pierwiastek kwadratowy z liczby ujemnej - absolutna niemożliwość w tamtych czasach (a także dzisiaj).
+        Cardano również napotkał tę trudność, ale zdecydował się z nią nie mierzyć.
+        Raz wspomniał liczby urojone, ale w związku z równaniami kwadratowymi, oraz opatrzył je komentarzem, że
+        "są tak samo subtelne jak bezużyteczne". [<a href="#cardano" alt="Cardano" title="Cardano">2</a>, Ch.
+        37, Rule II]
+      </p>
+    </div>
+
+    <p>
+      Jednakże Bombelli pokonał tę trudność, zauważając że to dziwne wyrażenie (\ref{cubic004}),
+      które wynika z wzoru Cardana jest liczbą rzeczywistą, ale wyrażoną w bardzo nietypowy sposób.
+      To odkrycie nie przyszło łatwo. Jak Bombelli napisał w swojej książce <em>L'Algebra</em>:
+
+      <div style="margin-left: 30px;margin-right: 30px;">
+        <p>
+          I chociaż wielu wyda się to ekstrawaganckie, jak i ja uważałem pewien czas temu, 
+          ponieważ wydawało mi się to bardziej sofistyczne niż prawdziwe, jednakowoż uporczywie szukałem
+          i znalazłem sposób, który zostanie zaprezentowany poniżej. (...) Ale pozwólmy czytelnikowi
+          zastosować całą siłę jego umysłu, bo [inaczej] nawet on poczuje się oszukany.
+          [<a href="bombelli" alt="Bombelli" title="Bombelli">1</a>, pp. 293-294;
+          <a href="#oconnor-robertson" alt="O'Connor-Robertson" title="O'Connor-Robertson">10</a>]
+        </p>
+      </div>
+
+      <figure class="w3-center">
+        <img class="w3-image w3-mobile" src="../images/chp01/algebra-bombelli.jpg" alt="L'Algebra" title="L'Algebra"
+          style="width:35%;">
+        <figcaption>
+          <b>Rysunek 5:</b> Rafael Bombelli <em>L'Algebra</em> - okładka wydania bolońskiego z 1579.
+        </figcaption>
+      </figure>
+    </p>
+
+    <div class="w3-responsive">
+      <p>
+        Wspaniały pomysł Bombelliego polegał na potraktowaniu $\sqrt{-1}$ jako liczby, a następnie operowaniu nią 
+        stosując specyficzne zasady artymetyczne (podobnego rodzaju jak stosowane współcześnie).
+
+        Tym samym odkrył on, że 
+        $$\sqrt[3]{2+ \sqrt{-121}} = 2 + \sqrt{-1} \quad \text{i} \quad \sqrt[3]{2- \sqrt{-121}} = 2 - \sqrt{-1} .$$
+
+        Podstawiając te wartości w (\ref{cubic004}) Bombelli uzyskał
+        $$x = 2 + \sqrt{-1} + 2 - \sqrt{-1}.$$
+        Następnie pokazał on, że pierwiastki kwadratowe liczb ujemnych znoszą się wzajemnie.
+        [<a href="#bombelli" alt="Bombelli" title="Bombelli">1</a>, p. 169;
+        <a href="#gonzalez-velasco" alt="González-velasco" title="González-Velasco">7</a>, p. 164]. To znaczy
+        $$x = 2 + \cancel{\sqrt{-1}} + 2 - \cancel{\sqrt{-1}}.$$
+        I wywnioskował, że $x = 4$ jest faktycznie rozwiązaniem $x^3=15x+4$
+        uzyskanym z wykorzystania wzoru Cardana [<a href="#bombelli" alt="Bombelli" title="Bombelli">1</a>, p. 294],
+        patrz Rysunek 6.
+
+        Ta sztuczka działa tylko w paru przypadkach, ale pomogła zrozumieć liczby urojone oraz jak operować nimi gdy pojawią się obok liczb rzeczywistych.
+      </p>
+    </div>
+
+    <div class="w3-row-padding">
+      <div id="phase" class="w3-third w3-container w3-margin-bottom w3-center">
+        
+        <p style="font-size:15px">
+          \begin{eqnarray*}
+          x^3 &=& 15x + 4\\
+          [x^3 &=& px + p]
+          \end{eqnarray*}
+          <br/>
+          \begin{eqnarray*}
+          (4/2)^2-(15/3)^3 &=& -121\\
+          [\left(q/2\right)^2 -\left(p/2\right)^3]&=&-121
+          \end{eqnarray*}
+          <br/>
+          \begin{eqnarray*}
+          x &=& \sqrt[3]{2+ \sqrt{-121}} + \sqrt[3]{2- \sqrt{-121}}\\
+          x &=& \sqrt[3]{2+ \sqrt{-11}} + \sqrt[3]{2- \sqrt{-11}} \\
+          x &=&  2 + \sqrt{-1} +  2 - \sqrt{-1} = 4
+          \end{eqnarray*}
+        
+        </p>
+      </div>
+      <div id="modulus" class="w3-twothird w3-container w3-margin-bottom">
+        <figure class="w3-center">
+          <img class="w3-image w3-mobile" src="../images/chp01/bombelli-solution.png" alt="Bombelli's solution"
+            title="Bombelli's solution" style="width:92%;">
+          <figcaption>
+            <b>Rysunek 6:</b> Oryginalne rozwiązanie Bombelliego
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+
+    <p>
+      Oczywiście, jak przedstawiono na Rys. 6, Bombelli nie miał pod ręką potęgi współczesnej
+      notacji matematycznej (ani komputerów), i jego obliczenia były ograniczone do operacji w "domenie rzeczywistej".
+      W rzeczywistości większość ówczesnych włoskich matematyków wolało myśleć o sześcianach i kwadratach
+      jako o geometrycznych obiektach, a nie wielkościach algebraicznych. 
+
+      Nie mniej Bombelli jest uznawany za osobę, która dowiodła, że pierwiastki równania sześciennego  $x^3=15x+4$
+      są rzeczywiste, jako że zademonstrował on niezwykły fakt, że liczby rzeczywiste mogą zostać zrodzone z liczb urojonych.
+    </p>
+
+    <p>
+      Wzór Cardana zmusił matematyków do zmierzenia się z pierwiastkami kwadratowymi liczb ujemnych. 
+
+      To wydarzenie historyczne jest jeszcze jednym przykładem, który neguje powszechny pogląd, mówiący że matematyka
+      jest "zmyślona" przez matematyków. Jak często się okazuje, to matematyka sama przemawia do nas. 
+
+      Od tamtego czasu liczby urojone straciły trochę swojego mistycznego charakteru, nie mniej ich pełna 
+      akceptacja jako pełnoprawne liczby przyszła dopiero w XIX wieku.
+    </p>
+
+    <div class="w3-padding">
+      <p><strong>Ćwiczenie:</strong> Wykaż że $\sqrt[3]{2 \pm \sqrt{-121}} = 2 \pm \sqrt{-1}$.</p>
+    </div>
+
+    <hr>
+
+    <h2>Rozwój liczb zespolonych</h2>
+
+    <p>
+      Wielu matematyków po Cardano i Bombellim miało ważny wkład w dziedzinę liczb urojonych (zespolonych).
+      Na przykład René Descartes (1596-1650) ukuł termin "urojony" w jego książce em>La Géométrie</em> z 1637:
+    </p>
+
+    <div style="margin-left: 30px;margin-right: 30px;">
+      <p>Ani prawdziwe, ani fałszywe [ujemne] pierwiastki nie są zawsze rzeczywiste, lecz czasem tylko urojone.
+        [<a href="#descartes" alt="Descartes" title="Descartes">4</a>, p. 380]
+      </p>
+    </div>
+
+    <p>
+      John Wallis (1616-1703) wykazał jak przedstawić geometryczne pierwiastki zespolone równania kwadratowego z współczynnikami rzeczywistymi.
+      [<a href="#kline" alt="Kline" title="Kline">8</a>, p. 594].
+      Carpar Wessel (1745-1818) i
+      <span style="white-space: nowrap;">Jean-Robert</span>
+      Argan (1768-1822) zaproponowali geometryczne przedstawienie liczb zespolonych jako wektorów.
+      [<a href="#gonzalez-velasco" alt="González-Velasco" title="González-Velasco">7</a>, pp. 185-190].
+    </p>
+
+
+
+    <figure class="w3-center">
+      <img class="w3-image w3-mobile" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Leonhard_Euler.jpg"
+        alt="Euler" title="Euler" style="width:25%;">
+      <figcaption>
+        <b>Rysunek 7:</b> Euler.
+      </figcaption>
+    </figure>
+
+    <p>
+      Leonard Euler (1707-1783) ustandaryzował notację "$i=\sqrt{-1}$"
+      [<a href=#euleri>6</a>, p. 184] i używał liczb urojonych do rozwiązywania równań drugiego i trzeciego stopnia,
+      pomimo faktu, że wciąż podejrzliwie traktował te liczby.
+      W swojej książce pod tytułem <em>Algebra</em> wspomina:
+    </p>
+
+    <div style="margin-left: 30px;margin-right: 30px;">
+      <p>
+        (...) skoro wszystkie liczby które można sobie wyobrazić są większe lub mniejsze od zera,
+        albo są zerem, jest ewidentnym, że nie możemy uporządkować pierwiastka kwadratowego z liczby ujemnej
+        pośród możliwych liczb, i tym samym musimy przyznać, że taka wielkość jest niemożliwa.
+        W ten sposób docieramy do koncepcji liczb, które w swej naturze są niemożliwe;
+        tym samym zwykle zwane są urojonymi, ponieważ istnieją tylko w naszych rojeniach. 
+        [<a href="#euler-algebra" alt="Euler-Algebra" title="Euler-Algebra">5</a>, p. 43]
+      </p>
+    </div>
+
+    <p>
+      Jednak aby nikt nie traktował tego jako potępienie, Euler kontynuuje:
+    </p>
+
+    <div style="margin-left: 30px;margin-right: 30px;">
+      <p>
+        mimo wszystko, te liczby przestawiają się ludzkiemu umysłowi, istnieją w naszej wyobrażni,
+        i wciąż mamy wystarczające pojęcie o nich; (...) nic nie powstrzymuje nas od używania tych
+        urojonych liczb i zastosowaniu ich w naszych obliczeniach. 
+        <span style="white-space: nowrap;">[<a href="#euler-algebra" alt="Euler" title="Euler">5</a>, p.
+          43]</span>
+
+      </p>
+    </div>
+
+    <p>
+      Później Carl Friedrich Gauss (1777-1855) wprowadził termin "liczby zespolone" 
+      odnoszący się do liczb w postaci $a+ b \, i $
+      [<a href="#gonzalez-velasco" alt="González-Velasco" title="González-Velasco">7</a>, p. 191].
+
+      W ciągu swojej długiej kariery zaprezentował on cztery dowody <em>zasadniczego twierdzenia algebry</em>.
+      Wspomniane twierdzenie mówi, że dowolny wielomian $n$-tego stopnia ma $n$ pierwiastków, niektóre z nich mogą
+      być urojone. Pierwszy dowód zaprezentował w 1799 w swojej pracy doktorskiej. Ostatni (i prawdopodobnie najbardziej elegancki)
+      pozwala użyć liczb zespolonych nie tylko jako zmienne, ale też jako współczynniki wielomianu. Jako że to twierdzenie
+      opiera się na liczbach zespolonych, Gauss pomógł umocnić pozycję tych liczb w środowisku matematycznym
+      [<a href="#kline" alt="Kline" title="Kline">8</a>, Vol. 2, p. 595].
+    </p>
+
+
+    <p>
+      Pierwszą ścisłą definicję liczb zespolonych zaproponował William Rowan Hamilton (1805-1865). 
+      W 1833 zasugerował Irlandzkiej Akademii, że liczba zespolona $a+ ib$ może być rozumiana jako 
+      <em>para uporządkowana</em> $(a, b)$, gdzie $a,b$ to liczby rzeczywiste
+      <span style="white-space: nowrap;">[<a href="#gonzalez-velasco" alt="González-Velasco"
+          title="González-Velasco">7</a>, pp. 192-193].</span>
+
+      Następnie zdefiniował dodawanie i mnożenie <em>par</em> jako:
+      $$(a, b)+(c, d) =(a + c, b + d)$$
+      oraz
+      $$(a, b)(c, d) = (ac − bd, bc + ad).$$
+      To jest de facto algebraiczna definicja liczb zespolonych. 
+
+      Z edukacyjnego i intuicyjnego punktu widzenia wygodnie wprowadzać
+      liczby zespolone poprzez interpretację geometryczną. Ale z logicznego punktu widzenia 
+      teoria <em>par uporządkowanych</em> jest dużo bardziej satysfakcjonująca, ponieważ pokazuje
+      spójność teorii liczb zespolonych wychodząc ze spójności liczb rzeczywistych[<a href="#carrucio" alt="Carrucio" title="Carrucio">3</a>, pág. 175].
+    </p>
+
+
+
+    <div class="w3-row-padding">
+
+      <div class="w3-half w3-container w3-margin-bottom">
+        <figure class="w3-center">
+          <img class="w3-image w3-mobile"
+            src="https://upload.wikimedia.org/wikipedia/commons/f/f6/William_Rowan_Hamilton_portrait_oval_combined.png"
+            alt="William Rowan Hamilton" title="William Rowan Hamilton" style="width:55%;">
+          <figcaption>
+            <b>Rysunek 8:</b> Hamilton.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="w3-half w3-container w3-margin-bottom">
+        <figure class="w3-center">
+          <img class="w3-image w3-mobile"
+            src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Augustin-Louis_Cauchy_1901.jpg"
+            alt="Augustin-Louis Cauchy" title="Augustin-Louis Cauchy" style="width:55%;">
+          <figcaption>
+            <b>Rysunek 9:</b> Cauchy.
+          </figcaption>
+        </figure>
+      </div>
+
+
+    </div>
+
+    <p>
+      Pośród wielu matematyków i naukowców, którzy mieli wkład, jest trzech, którzy wyróżniają się 
+      znaczącym wpływem na rozwój analizy zespolonej
+      <span style="white-space: nowrap;">[<a href="#kline" alt="Kline" title="Kline">8</a>, Vol.2, Ch. 27]</span>.
+
+      Pierwszym jest Augustin-Louis Cauchy (1789-1857), który rozwinął teorię całkowania zespolonego.
+      Używając liczb urojonych Cauchy był w stanie obliczać "całki rzeczywiste", dla których inny sposób obliczenia nie był znany,
+      otrzymując zdumiewające wyniki jak 
+      $$\int_0^{\infty} \frac{\sin x}{x}\,dx=\frac{\pi}{2}$$
+      oraz
+      $$\int_0^{\pi}\log \sin x\,dx =-\pi \log 2.$$
+      Obliczanie całek rzeczywistych, w połączeniu z rozwiązywaniem równań sześciennych i zasadniczym twierdzeniem algebry,
+      wykazało jak wartościowe było rozważanie liczb urojonych.  
+    </p>
+
+    <div class="w3-row-padding">
+      <div class="w3-half w3-container w3-margin-bottom">
+        <figure class="w3-center">
+          <img class="w3-image w3-mobile" src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Karl_Weierstrass.jpg"
+            alt="Karl Weierstrass" title="Karl Weierstrass" style="width:55%;">
+          <figcaption>
+            <b>Rysunek 10:</b> Weierstrass.
+          </figcaption>
+        </figure>
+      </div>
+      <div class="w3-half w3-container w3-margin-bottom">
+        <figure class="w3-center">
+          <img class="w3-image w3-mobile"
+            src="https://upload.wikimedia.org/wikipedia/commons/8/82/Georg_Friedrich_Bernhard_Riemann.jpeg"
+            alt="Georg Friedrich Bernhard Riemann" title="Georg Friedrich Bernhard Riemann" style="width:70%;">
+          <figcaption>
+            <b>Rysunek 11:</b> Riemann.
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+
+    <p>
+      Dwaj ostatni istotni matematycy to Karl Weierstrass
+      (1815-1897) i Bernhard Riemann (1826-1866), którzy pojawili się na matematycznej scenie 
+      w połowie dziewiętnastego wieku. Weierstrass rozwinął teorię zaczynając od zbieżnych szeregów potęgowych,
+      i dało to w rezultacie rozwój bardziej formalnych algebraicznych aspektów. Wkład Riemanna jest z bardziej 
+      geometrycznego punktu widzenia na badanie funkcji zespolonych. Jego pomysły miały ogromny wpływ nie tylko 
+      na analizę zespoloną, ale także na matematykę jako całość, chociaż powszechna akceptacja jego idei potrzebowała czasu. 
+    </p>
+
+
+    <hr>
+
+    <h2>Komentarz końcowy</h2>
+
+    <p>
+      Powyższy opis liczb zespolonych to nie koniec całej historii.
+      Różne postępy dokonane w XIX i XX wieku pozwoliły nam uzyskać 
+      głębsze zrozumienie roli liczb zespolonych nie tylko w matematyce, ale także w inżynierii i fizyce.
+      Historia liczb zespolonych jest fascynująca, i zachęcam czytelnika do zapoznania się ze źródłami, które 
+      są cytowane w tym rozdziale. Mogą one posłużyć jako początek zagłębiania się w detaile historyczne,
+      które pozwoliły na wyłonienie się i rozwój liczb zespolonych.  
+    </p>
+
+    <!--
+      <p>
+      Do they really exist or are they simply
+      phantoms of our "imagination", and thus truly "imaginary"?
+    </p>
+    -->
+
+
+    <hr>
+
+    <h2>References</h2>
+
+    <br>
+
+    <ol style="line-height:25px">
+      <li id="bombelli">Bombelli, R. (1579). <em>L'Algebra.</em> Bologna. <a href="http://mathematica.sns.it/opere/9/"
+          target="_blank"><i class="fas fa-external-link-alt"></i></a></li>
+
+      <li id="cardano">Cardano, H. (1545). <em>Artis magnae, sive de regulis algebraicis, liber unus.</em> (n.p.): Joh.
+        Petreius.
+        <a href="https://www.google.com.au/books/edition/Artis_magnae_sive_de_regulis_algebraicis/-k5ZAAAAcAAJ?hl=en&gbpv=1&pg=PA66&printsec=frontcover&bsq=cuius%20hoc%20extremum%20ut%20dixi%2C%20adeo%20est%20subtile%2C%20ut%20sit%20inutile"
+          target="_blank"><i class="fas fa-external-link-alt"></i></a></li>
+      <li id="carrucio">Carrucio, E. (2009). <em>Mathematics and Logic in History and Contemporary Thought</em>.
+        (I. Quigly, Trans.) USA: Aldine Transaction. (Original work published 1964).</li>
+      <li id="descartes">Descartes, R. (1637). <em>La Géométrie.</em> Paris: A. Herman, Librairie Scientifique. <a
+          href="https://archive.org/details/geometryofrene00desc/page/174/mode/2up?q=imaginary" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a></li>
+      <li id="euler-algebra">Euler, L. (1972). <em>Elements of Algebra.</em> (Rev. John Hewlett, B.D. F.A.S. &c,
+        Trans.). Springer-Verlag.
+        (Original work published 1770). <a href="https://www.springer.com/gp/book/9781461385134" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a></li>
+      <li id="euleri">Euleri, L. (1845). <em>Instituitionum Calculi Integralis.</em> Volumen Quartum.
+        Petropoli. Impensis Academia Imperialis Scientarum. <a
+          href="https://books.google.it/books?id=rCNRAAAAYAAJ&pg=PA184#v=onepage&q&f=false" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a>
+      </li>
+      <li id="gonzalez-velasco">González-Velasco, A. E. (2011) <em>Journey through Mathematics.</em>
+        Springer Science+Business Media. <a href="https://www.springer.com/gp/book/9780387921532" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a></li>
+      <li id="kline">Kline, M. (1972). <em>Mathematical Thought from Ancient to Modern Times.</em> Vols. 1-3. New Yors:
+        Oxford University Press.</li>
+      <li id="merzbach-boyer">Merzbach, U. C & Boyer, C. B. (2011). <em>A history of mathematics.</em> 3rd ed.
+        John Wiley & Sons, Inc., Hoboken, New Jersey.</li>
+      <li id="oconnor-robertson">O'Connor, J. J. & Robertson, E. F. (2000). <em>Rafael Bombelli.</em>
+        <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Bombelli/" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a> </li>
+    </ol>
+
+    <p class="w3-center" style="font-size:24px">
+      <strong>Further reading</strong>
+    </p>
+
+    <ul style="line-height:25px">
+      <li id="bagni">Bagni, G. T. (2009). Bombelli's Algebra (1572) and a New Mathematical Object.
+        <em>For the Learning of Mathematics.</em> Vol. 29, No. 2, pp. 29-31.&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.jstor.org/stable/40248647" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+      </li>
+      <li id="buehler">Buehler, D. (2014). Incomplete understanding of complex numbers
+        Girolamo Cardano: a case study in the acquisition
+        of mathematical concepts. <em>Synthese </em> 191:4231-4252.&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://link.springer.com/article/10.1007/s11229-014-0527-x" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a></li>
+      <li id="burton">Burton, D. M. (1995). <em>The history of mathematics: An introduction</em> (6th ed.)
+        (2005). New York: McGraw-Hill.</li>
+
+      <li>Gindikin, S. (2007). <em>Tales of Mathematicians and Physicists</em>. Second English edition Springer Science+
+        Business Media, LLC.&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://link.springer.com/book/10.1007/978-0-387-48811-0" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a> </li>
+      <li id="nahim">Nahim, P. J. (1998). <em>An imaginary tale: The story of $\sqrt{-1}$</em>. USA: Princeton
+        University Press.
+      </li>
+      <li id="huffman">Huffman, C. J. (2019). Mathematical Treasure: Raphael Bombelli's L'algebra. <em>Convergence.</em>
+        &nbsp;&nbsp;&nbsp;&nbsp;<a
+          href="https://www.maa.org/press/periodicals/convergence/mathematical-treasure-raphael-bombellis-lalgebra"
+          target="_blank"><i class="fas fa-external-link-alt"></i></a></li>
+      <li id="marsden-tromba">Marsden, J. E. & Tromba, A. J. (2003). <em>Vector Calculus.</em> USA: W. H. Freeman and
+        Company.</li>
+      <li id="merino">Merino, O. (2006). <em>A Short History of Complex Numbers.</em> &nbsp;&nbsp;&nbsp;&nbsp;<a
+          href="http://www.math.uri.edu/~merino/spring06/mth562/ShortHistoryComplexNumbers2006.pdf" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a></li>
+      <li id="stillwell">Stillwell, J. (2010). <em>Mathematics and Its History.</em> Springer Science+Business
+        Media.&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.springer.com/gp/book/9781441960528" target="_blank"><i
+            class="fas fa-external-link-alt"></i></a></li>
+
+    </ul>
+
+    <br>
+
+
+
+
+    <!-- link to the next page -->
+    <a href="terminology_notation.html">
+      <p class="nextPage">NEXT: Terminology and Notation</p>
+    </a>
+    <footer>
+      <p>[ <a href="../">intro</a>, <a href="https://github.com/jcponce/complex">source</a>, <a
+          href="https://github.com/jcponce/complex/issues">issues</a> ]</p>
+
+      <p class="license"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+          <img id="license" alt="Creative Commons License" style="border-width:0"
+            src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png">
+        </a></p>
+    </footer>
+
+  </div> <!-- end wrapper -->
+
+  <!-- nice smart quotes, via: http://smartquotesjs.com -->
+  <script src="../js/smartquotes.min.js"></script>
+
+  <!--GeoGebra embeding-->
+  <script src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+
+  <script>
+    var params01 = {
+      "width": 696,
+      "height": 436,
+      "material_id": "mqdbedcd",
+      "borderColor": "888888",
+      "playButton": false,
+      "showFullscreenButton": true,
+      "enableShiftDragZoom": true,
+      "showResetIcon": true
+    };
+    var params02 = {
+      "width": 670,
+      "height": 430,
+      "material_id": "ntehbavr",
+      "borderColor": "888888",
+      "playButton": false,
+      "showFullscreenButton": true,
+      "enableShiftDragZoom": true,
+      "showResetIcon": true
+    };
+    var ggbApplet01 = new GGBApplet(params01, true);
+    var ggbApplet02 = new GGBApplet(params02, true);
+    window.addEventListener("load", function () {
+      ggbApplet01.inject('ggb-element-01');
+      ggbApplet02.inject('ggb-element-02');
+    });
+  </script>
+
+</body>
+
+</html>
